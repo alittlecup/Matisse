@@ -26,6 +26,9 @@ import com.zhihu.matisse.internal.ui.PreviewItemFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 修改原有的的PageAdapter,添加两个额外的方法。
+ */
 public class PreviewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Item> mItems = new ArrayList<>();
@@ -39,6 +42,20 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return PreviewItemFragment.newInstance(mItems.get(position));
+    }
+
+    /**
+     * 这个方法的作用是保证在底部拖动位置修改之后的ViewPager能够找到正确的Fragment.
+     * 由于{@link FragmentPagerAdapter#instantiateItem(ViewGroup, int)}中的FragmentManager会查找之前创建过的Fragment,
+     * 并且Fragment不能够重新加载,所以这里修改了查找Fragment的凭据，也就是fragmentName.
+     *
+     * 值得注意的是，这样处理了之后，当底部的view拖动，修改顺序之后，ViewPager是依然可以找到左右的Fragment,但是！！！！
+     * 但是！！！此时的ViewPager中的排列和当前的mItems的排列可能是不对应的，应该注意。
+     * @param position
+     * @return
+     */
+    @Override public long getItemId(int position) {
+        return mItems.get(position).getContentUri().hashCode();
     }
 
     @Override
@@ -67,4 +84,18 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
         void onPrimaryItemSet(int position);
     }
 
+    /**
+     * 由于位置的不对应，所以需要一个方法，根据需要显示的Item去获取应该设置的位置。
+     * @param itemcode
+     * @return
+     */
+    public int getCurPositionByItemUriHashCode(long itemcode){
+        if(itemcode==0)return 0;
+        for(int i=0;i<mItems.size();i++){
+            if(itemcode==mItems.get(i).getContentUri().hashCode()){
+                return i;
+            }
+        }
+        return 0;
+    }
 }

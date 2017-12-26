@@ -19,14 +19,18 @@ import android.content.Context;
 
 public class UIUtils {
 
-    public static int spanCount(Context context, int gridExpectedSize) {
-        int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        float expected = (float) screenWidth / (float) gridExpectedSize;
-        int spanCount = Math.round(expected);
-        if (spanCount == 0) {
-            spanCount = 1;
-        }
-        return spanCount;
+  public static int spanCount(Context context, int gridExpectedSize) {
+    int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
+    float expected = (float) screenWidth / (float) gridExpectedSize;
+    int spanCount = Math.round(expected);
+    if (spanCount == 0) {
+      spanCount = 1;
     }
+    return spanCount;
+  }
 
+  public static int dip2px(Context context, float dpValue) {
+    final float scale = context.getResources().getDisplayMetrics().density;
+    return (int) (dpValue * scale + 0.5f);
+  }
 }
