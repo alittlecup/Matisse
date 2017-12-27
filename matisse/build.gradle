@@ -87,7 +87,7 @@ uploadArchives {
             }
             pom.project {
                 version '1.0.0'
-                artifactId 'matisse-lib'
+                artifactId 'matisse'
                 groupId GROUP_ID
                 packaging TYPE
                 description DESCRIPTION
