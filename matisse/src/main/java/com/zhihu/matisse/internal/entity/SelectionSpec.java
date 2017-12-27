@@ -38,6 +38,7 @@ public final class SelectionSpec {
     public int orientation;
     public boolean countable;
     public int maxSelectable;
+    public boolean dragable;
     public int maxImageSelectable;
     public int maxVideoSelectable;
     public List<Filter> filters;
@@ -76,6 +77,7 @@ public final class SelectionSpec {
         captureStrategy = null;
         spanCount = 3;
         gridExpectedSize = 0;
+        dragable=false;
         thumbnailScale = 0.5f;
         imageEngine = new GlideEngine();
     }

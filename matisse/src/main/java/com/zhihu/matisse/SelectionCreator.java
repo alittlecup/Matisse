@@ -138,6 +138,18 @@ public final class SelectionCreator {
         mSelectionSpec.countable = countable;
         return this;
     }
+    /**
+     * Show a recycylerview in bottom or Hide.
+     *
+     * @param dragable true for the preview has a recycylerview bottom to drag, false for Gone Default
+     *                  value is false.
+     * @return {@link SelectionCreator} for fluent API.
+     */
+    public SelectionCreator dragable(boolean dragable) {
+        mSelectionSpec.dragable = dragable;
+        return this;
+    }
+
 
     /**
      * Maximum selectable count.

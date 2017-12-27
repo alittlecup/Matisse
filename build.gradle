@@ -30,6 +30,9 @@ allprojects {
     repositories {
         jcenter()
         google()
+        maven {
+            url 'http://43.241.209.158:15004/repository/maven-releases/'
+        }
     }
 }
 

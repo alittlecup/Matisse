@@ -18,6 +18,7 @@ package com.zhihu.matisse.internal.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.zhihu.matisse.internal.entity.Item;
@@ -49,15 +50,14 @@ public class PreviewPagerAdapter extends FragmentPagerAdapter {
      * 由于{@link FragmentPagerAdapter#instantiateItem(ViewGroup, int)}中的FragmentManager会查找之前创建过的Fragment,
      * 并且Fragment不能够重新加载,所以这里修改了查找Fragment的凭据，也就是fragmentName.
      *
-     * 值得注意的是，这样处理了之后，当底部的view拖动，修改顺序之后，ViewPager是依然可以找到左右的Fragment,但是！！！！
-     * 但是！！！此时的ViewPager中的排列和当前的mItems的排列可能是不对应的，应该注意。
+     * 值得注意的是，这样处理了之后，当底部的view拖动，修改顺序之后，ViewPager是依然可以找到左右的Fragment
+     * 但是！！！！！！！此时的ViewPager中的排列和当前的mItems的排列可能是不对应的，应该注意。
      * @param position
      * @return
      */
     @Override public long getItemId(int position) {
         return mItems.get(position).getContentUri().hashCode();
     }
-
     @Override
     public int getCount() {
         return mItems.size();

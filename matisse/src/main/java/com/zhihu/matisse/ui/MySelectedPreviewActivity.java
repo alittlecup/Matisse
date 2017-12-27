@@ -90,6 +90,7 @@ public class MySelectedPreviewActivity extends SelectedPreviewActivity
     Item item = selected.get(fromPosition);
     selected.remove(fromPosition);
     selected.add(toPosition, item);
+
   }
 
   /**
@@ -113,5 +114,16 @@ public class MySelectedPreviewActivity extends SelectedPreviewActivity
     mAdapter.addAll(selected);
     mPager.setAdapter(mAdapter);
     mPager.setCurrentItem(mAdapter.getCurPositionByItemUriHashCode(curItemHashCode));
+
+
+    //这里是为了保证选中的集合中与底部排序的顺序一致
+    List<Item> items = mSelectedCollection.asList();
+    ArrayList<Item> newSelected=new ArrayList<>(items.size());
+    for(Item item:selected){
+      if(mSelectedCollection.isSelected(item)){
+        newSelected.add(item);
+      }
+    }
+    mSelectedCollection.overwrite(newSelected,mSelectedCollection.getCollectionType());
   }
 }
